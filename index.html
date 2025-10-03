@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U1 Music - The Ultimate Discord Music Bot</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#4F46E5', // For CTA button
+                        'dark-navy': '#0A0A2A',   // Main background
+                        'deep-blue': '#101736',   // Card/panel background (now replaced by glass)
+                        'neon-green': '#10B981',  // System online indicator
+                        'neon-purple': '#A78BFA', // Accent color
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%, 100%': { 'box-shadow': '0 0 10px rgba(79, 70, 229, 0.5), 0 0 5px rgba(79, 70, 229, 0.3)' },
+                            '50%': { 'box-shadow': '0 0 20px rgba(79, 70, 229, 0.8), 0 0 10px rgba(79, 70, 229, 0.5)' },
+                        }
+                    },
+                    animation: {
+                        glow: 'glow 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the network diagram aesthetic */
+        .diagram-node {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            text-align: center;
+            cursor: default;
+        }
+
+        .diagram-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, #4F46E5, #A78BFA);
+            transform-origin: 0 0;
+            opacity: 0.5;
+            z-index: 10;
+        }
+
+        /* Set font to Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style for the command tokens */
+        .command-token {
+            background-color: rgba(79, 70, 229, 0.2); /* primary-blue with transparency */
+            border-radius: 0.25rem;
+            padding: 2px 6px;
+            font-family: monospace;
+            font-weight: 600;
+            color: #A78BFA; /* neon-purple */
+        }
+    </style>
+</head>
+<body class="bg-dark-navy text-white min-h-screen">
+
+    <!-- Header / Navigation Bar - Applied Glassmorphism -->
+    <header class="p-4 md:p-6 sticky top-0 bg-white/5 backdrop-blur-lg border-b border-white/10 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2 text-xl font-bold text-white">
+                <!-- Music Icon (Bot Logo) - UPDATED TO USE IMAGE URL -->
+                <img src="https://i.ibb.co/HD3VxXzp/U1-music-bot-icon.png" alt="U1 Music Bot Icon" class="w-6 h-6 rounded-md">
+                <span>U1 Music™</span>
+            </a>
+            <nav class="hidden lg:flex space-x-8 items-center text-sm font-medium">
+                <a href="#features" class="hover:text-primary-blue transition duration-200">Features</a>
+                <a href="#commands" class="hover:text-primary-blue transition duration-200">Commands</a>
+                <!-- Support Link Updated to Sus Gang Discord URL -->
+                <a href="https://discord.gg/bdZhjy3n6z" target="_blank" class="hover:text-primary-blue transition duration-200">Support / Sus Gang™</a>
+                <!-- Invite Button in Nav - UPDATED LINK -->
+                <a href="https://discord.com/oauth2/authorize?client_id=1418673291190730792&permissions=4331694080&integration_type=0&scope=bot" target="_blank" class="bg-primary-blue hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 shadow-lg shadow-primary-blue/30">
+                    Invite Bot
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content/Hero Section -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center mt-12 md:mt-24">
+
+            <!-- Left Side: Text and CTA -->
+            <div class="space-y-6">
+                <!-- Updated to mention Lavalink -->
+                <div class="flex items-center space-x-2 text-sm font-medium text-neon-green">
+                    <span class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
+                    <span>Powered by Ultra-Fast Lavalink</span>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    The Ultimate <span class="block text-primary-blue">Discord Music Bot</span> Experience Starts Here
+                </h1>
+
+                <!-- Updated to mention Lavalink -->
+                <p class="text-lg text-gray-400 max-w-xl">
+                    Built on **Lavalink** for unparalleled speed, U1 Music delivers seamless, lag-free, high-fidelity audio. Effortlessly play your favorite tracks and playlists from **Spotify** and **YouTube** directly in your Discord voice channels.
+                </p>
+
+                <!-- Main CTA Button - UPDATED LINK -->
+                <a href="https://discord.com/oauth2/authorize?client_id=1418673291190730792&permissions=4331694080&integration_type=0&scope=bot" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-primary-blue hover:bg-indigo-600 text-white font-semibold py-3 px-8 mt-6 rounded-xl transition duration-300 shadow-2xl shadow-primary-blue/50 transform hover:scale-[1.02] active:scale-[0.98] animation-glow">
+                    <span>Invite U1 Music Now</span>
+                    <!-- Arrow Right Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+
+                <!-- Feature Highlights (bottom left) -->
+                <div class="flex flex-wrap gap-x-6 gap-y-3 pt-6 text-sm text-gray-300">
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2 h-2 bg-neon-green rounded-full"></span>
+                        <span>99.99% Uptime SLA</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2 h-2 bg-neon-green rounded-full"></span>
+                        <span>Spotify & YouTube Integration</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5">
+                        <span class="w-2 h-2 bg-neon-green rounded-full"></span>
+                        <span>Lag-free Audio (Lavalink)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: System Status / Diagram Panel - Applied Glassmorphism -->
+            <div class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white/20 w-full aspect-square max-w-md mx-auto lg:max-w-none">
+                
+                <!-- Status Header -->
+                <div class="flex justify-between items-center pb-4 border-b border-white/20">
+                    <div class="flex items-center space-x-2 text-sm font-medium text-neon-green">
+                        <span class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
+                        <span>BOT ONLINE</span>
+                    </div>
+                    <span class="text-sm text-gray-500 font-mono">U1 MUSIC™</span>
+                </div>
+
+                <!-- Metrics - kept dark for contrast on the glass background -->
+                <div class="grid grid-cols-2 gap-4 my-4">
+                    <div class="p-3 bg-dark-navy rounded-lg">
+                        <p class="text-sm text-gray-400">Average Latency</p>
+                        <p class="text-xl font-bold text-white">&lt;0.05ms</p>
+                    </div>
+                    <div class="p-3 bg-dark-navy rounded-lg">
+                        <p class="text-sm text-gray-400">Server Throughput</p>
+                        <p class="text-xl font-bold text-white">5.5 GB / s</p>
+                    </div>
+                </div>
+
+                <!-- Bot Ecosystem Diagram -->
+                <div class="relative flex items-center justify-center h-64 mt-4">
+                    <!-- Center Node (U1 Music) -->
+                    <div id="center-node" class="diagram-node bg-primary-blue shadow-lg shadow-primary-blue/50 z-20 text-white font-bold">
+                        U1
+                    </div>
+
+                    <!-- Surrounding Nodes -->
+                    <div id="discord-node" class="diagram-node bg-purple-600/70 text-white absolute top-0 right-10 transform translate-x-1/2 -translate-y-1/2" style="top: 20%; right: 10%;">Discord</div>
+                    <div id="spotify-node" class="diagram-node bg-green-500/70 text-white absolute top-0 right-10 transform translate-x-1/2 -translate-y-1/2" style="top: 70%; left: 10%;">Spotify</div>
+                    <div id="youtube-node" class="diagram-node bg-red-600/70 text-white absolute top-0 right-10 transform translate-x-1/2 -translate-y-1/2" style="bottom: 10%; right: 20%;">YouTube</div>
+                    <div id="api-node" class="diagram-node bg-yellow-500/70 text-white absolute top-0 right-10 transform translate-x-1/2 -translate-y-1/2" style="top: 10%; left: 30%;">Lavalink</div>
+
+                    <!-- Lines (Generated by JS for accurate positioning) -->
+                    <div id="lines-container" class="absolute w-full h-full"></div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- NEW FEATURES SECTION -->
+    <section id="features" class="max-w-7xl mx-auto p-4 md:p-8 mt-20">
+        <h2 class="text-4xl font-bold text-center mb-4">
+            Core <span class="text-primary-blue">Features</span>
+        </h2>
+        <p class="text-center text-lg text-gray-400 max-w-2xl mx-auto mb-16">
+            U1 Music is engineered for speed and quality, giving your Discord community the best possible audio experience.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature Card 1: Lavalink Performance -->
+            <div class="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-lg hover:shadow-primary-blue/20 transition duration-300 transform hover:scale-[1.02]">
+                <div class="flex items-center justify-center w-12 h-12 bg-primary-blue/30 rounded-full mb-4">
+                    <!-- Bolt Icon (Performance) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-blue"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Lavalink Precision Engine</h3>
+                <p class="text-gray-400 text-sm">
+                    Experience music playback with **near-zero latency** and rock-solid stability. Our dedicated Lavalink audio server ensures a seamless, lag-free stream, even under heavy load. The audio quality is crystal-clear and reliable.
+                </p>
+            </div>
+
+            <!-- Feature Card 2: Universal Source Integration -->
+            <div class="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-lg hover:shadow-neon-green/20 transition duration-300 transform hover:scale-[1.02]">
+                <div class="flex items-center justify-center w-12 h-12 bg-neon-green/30 rounded-full mb-4">
+                    <!-- Music Notes Icon (Integration) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neon-green"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Universal Source Integration</h3>
+                <p class="text-gray-400 text-sm">
+                    Effortlessly stream millions of tracks by simply pasting links from **Spotify, YouTube**, or other major streaming services. Play entire albums, custom playlists, or single songs with a single, simple command.
+                </p>
+            </div>
+
+            <!-- Feature Card 3: Pro-Grade Audio Effects -->
+            <div class="bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-lg hover:shadow-neon-purple/20 transition duration-300 transform hover:scale-[1.02]">
+                <div class="flex items-center justify-center w-12 h-12 bg-neon-purple/30 rounded-full mb-4">
+                    <!-- Sliders Icon (Customization) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neon-purple"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="1" x2="7" y1="14" y2="14"/><line x1="9" x2="15" y1="8" y2="8"/><line x1="17" x2="23" y1="16" y2="16"/></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Pro-Grade Audio Effects</h3>
+                <p class="text-gray-400 text-sm">
+                    Take full control of your listening environment. Apply professional audio filters like **BassBoost, Equalizer, Nightcore, Vaporwave**, and more to instantly customize the sound profile for your entire Discord server.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMANDS SECTION -->
+    <section id="commands" class="max-w-7xl mx-auto p-4 md:p-8 mt-20">
+        <h2 class="text-4xl font-bold text-center mb-10">
+            Available <span class="text-neon-purple">Commands</span>
+        </h2>
+
+        <div class="bg-white/10 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white/20 max-w-4xl mx-auto">
+            <p class="text-lg text-gray-300 mb-6 border-b border-white/10 pb-4">
+                <span class="text-neon-green font-semibold">Prefix: !</span> — Try: <span class="command-token">!play Lofi Hip Hop</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+                <!-- Music Commands Group -->
+                <div class="space-y-3">
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Playback</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!play &lt;query&gt;</span>
+                        <span class="text-gray-400">Play a song or playlist</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!pause</span>
+                        <span class="text-gray-400">Pause the current track</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!resume</span>
+                        <span class="text-gray-400">Resume the current track</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!skip</span>
+                        <span class="text-gray-400">Skip the current track</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!stop</span>
+                        <span class="text-gray-400">Stop playback and clear queue</span>
+                    </div>
+                </div>
+                
+                <!-- Queue & Status Commands Group -->
+                <div class="space-y-3">
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Queue & Info</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!queue</span>
+                        <span class="text-gray-400">Show the current queue</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!nowplaying</span>
+                        <span class="text-gray-400">Show current track info</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!shuffle</span>
+                        <span class="text-gray-400">Shuffle the current queue</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!loop</span>
+                        <span class="text-gray-400">Toggle queue loop mode</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="command-token">!remove &lt;position&gt;</span>
+                        <span class="text-gray-400">Remove a track from queue</span>
+                    </div>
+                </div>
+
+                <!-- Utility Commands (Spanning Columns) -->
+                <div class="space-y-3 mt-6 col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Settings & Utility</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex justify-between items-center">
+                            <span class="command-token">!volume &lt;0-100&gt;</span>
+                            <span class="text-gray-400">Adjust player volume</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="command-token">!clear</span>
+                            <span class="text-gray-400">Clear the current queue</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="command-token">!status</span>
+                            <span class="text-gray-400">Show player status</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="command-token">!help</span>
+                            <span class="text-gray-400">Show this help message</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer/Placeholder for other sections -->
+    <footer class="mt-20 py-8 text-center text-sm text-gray-500 border-t border-gray-800">
+        <p class="mb-1">&copy; 2024 U1 Music. All rights reserved. Spotify and YouTube are registered trademarks.</p>
+        <!-- Added Sus Gang credit and Discord link -->
+        <p>A project by <a href="https://discord.gg/bdZhjy3n6z" target="_blank" class="text-neon-purple hover:text-primary-blue transition duration-200 font-medium">Sus Gang™</a></p>
+    </footer>
+
+
+    <script>
+        // --- Custom JS for the Ecosystem Diagram (Visual Effect) ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const centerNode = document.getElementById('center-node');
+            const discordNode = document.getElementById('discord-node');
+            const spotifyNode = document.getElementById('spotify-node');
+            const youtubeNode = document.getElementById('youtube-node');
+            const apiNode = document.getElementById('api-node');
+            const linesContainer = document.getElementById('lines-container');
+
+            // Renamed 'apiNode' text to 'Lavalink' for the diagram
+            apiNode.textContent = 'Lavalink';
+
+            const nodes = [discordNode, spotifyNode, youtubeNode, apiNode];
+
+            const drawLines = () => {
+                // Clear previous lines
+                linesContainer.innerHTML = '';
+
+                if (!centerNode) return;
+
+                // Center position (relative to linesContainer)
+                const centerRect = centerNode.getBoundingClientRect();
+                const containerRect = linesContainer.getBoundingClientRect();
+                
+                // Calculate the center point of the center node relative to the container
+                const centerX = centerRect.left + centerRect.width / 2 - containerRect.left;
+                const centerY = centerRect.top + centerRect.height / 2 - containerRect.top;
+
+                nodes.forEach(node => {
+                    if (!node) return;
+
+                    const nodeRect = node.getBoundingClientRect();
+                    
+                    // Calculate the center point of the current node relative to the container
+                    const nodeX = nodeRect.left + nodeRect.width / 2 - containerRect.left;
+                    const nodeY = nodeRect.top + nodeRect.height / 2 - containerRect.top;
+
+                    // Calculate distance (length of line)
+                    const dx = nodeX - centerX;
+                    const dy = nodeY - centerY;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+
+                    // Calculate angle (rotation)
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+                    // Create and style the line
+                    const line = document.createElement('div');
+                    line.classList.add('diagram-line');
+                    line.style.width = `${length}px`;
+                    line.style.left = `${centerX}px`;
+                    line.style.top = `${centerY}px`;
+                    line.style.transform = `rotate(${angle}deg)`;
+                    line.style.opacity = '0.7'; // Stronger lines
+
+                    linesContainer.appendChild(line);
+                });
+            };
+
+            // Recalculate and redraw lines on window resize to keep diagram accurate
+            const resizeObserver = new ResizeObserver(() => {
+                drawLines();
+            });
+
+            // Observe the container (or main element) for layout changes
+            const parentElement = document.querySelector('.lg\\:grid-cols-2');
+            if (parentElement) {
+                resizeObserver.observe(parentElement);
+            }
+
+            // Initial draw
+            setTimeout(drawLines, 100); // Small delay to ensure all elements are rendered
+        });
+
+
+        // --- Firebase/Authentication Setup (MANDATORY FOR CANVAS) ---
+        
+        // IMPORTANT: The following variables are provided by the hosting environment.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        if (firebaseConfig) {
+             // For a purely static invite page, Firebase isn't strictly necessary, 
+             // but we include the structure for compliance and future feature expansion.
+             
+             // We do not initialize Firebase here since this is a static page, 
+             // but if you were to add user data, you would include the module imports 
+             // and initialization logic here.
+             console.log("Firebase config detected. Ready for future features like command lookup or user profiles.");
+        }
+
+
+        // --- Utility function for API Exponential Backoff (MANDATORY FOR API CALLS) ---
+        // Although no LLM API call is needed for this static page, this function demonstrates 
+        // the required robust calling structure if you were to add a feature like a command generator.
+        async function fetchWithRetry(url, options, maxRetries = 3) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        console.error('All retries failed.', error);
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000;
+                    // console.log(`Retry attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
