@@ -13,9 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
-        // Lavalink Server API Configuration
-        const LAVALINK_API_KEY = 'fsv0RfIosZeARdoF5dVxJhZfbdVMfSAoRZoeqVaYvUimMdFr';
-
         tailwind.config = {
             theme: {
                 extend: {
@@ -69,355 +66,7 @@
             }
         }
     </script>
-    <style>
-        /* Custom styles for the network diagram aesthetic */
-        .diagram-node {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            text-align: center;
-            cursor: default;
-        }
-
-        .diagram-line {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(to right, #4F46E5, #A78BFA);
-            transform-origin: 0 0;
-            opacity: 0.5;
-            z-index: 10;
-        }
-
-        /* Global Styles */
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #050505;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.15), transparent 25%);
-            background-attachment: fixed;
-        }
-        
-        /* Style for the command tokens */
-        .command-token {
-            background: linear-gradient(90deg, rgba(79, 70, 229, 0.2), rgba(167, 139, 250, 0.2));
-            border-radius: 0.25rem;
-            padding: 2px 6px;
-            font-family: monospace;
-            font-weight: 600;
-            color: #A78BFA; /* neon-purple */
-            border: 1px solid rgba(167, 139, 250, 0.3);
-        }
-
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            filter: blur(10px); /* Modern Lens Blur Effect */
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-
-        /* Spotlight Card Effect */
-        .spotlight-card {
-            position: relative;
-            overflow: hidden;
-        }
-        .spotlight-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
-            z-index: 0;
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .spotlight-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Custom Cursor */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: white;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        body:hover .cursor-outline {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- 3D & Modern Additions --- */
-        .perspective-1000 {
-            perspective: 1000px;
-        }
-        .transform-style-3d {
-            transform-style: preserve-3d;
-        }
-        .tilt-card {
-            transition: transform 0.1s ease-out;
-            will-change: transform;
-        }
-        /* Elements with this class will float above the card surface */
-        .content-pop {
-            transform: translateZ(30px);
-        }
-        
-        /* Cyber Grid Background */
-        .cyber-grid {
-            position: fixed;
-            bottom: -30%;
-            left: -50%;
-            width: 200%;
-            height: 150%;
-            background-image: 
-                linear-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(79, 70, 229, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            transform: perspective(500px) rotateX(60deg);
-            animation: grid-move 20s linear infinite;
-            z-index: -2;
-            pointer-events: none;
-            mask-image: linear-gradient(to top, black 0%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
-        }
-        
-        /* Particle Canvas Background */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        @keyframes grid-move {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 60px; }
-        }
-
-        /* Scramble Text Effect Color */
-        .dud {
-            color: #4F46E5;
-            opacity: 0.7;
-        }
-
-        /* Glitch Effect for Logo */
-        @keyframes glitch-anim {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        .glitch-effect {
-            transition: all 0.2s ease;
-        }
-        
-        .glitch-effect:hover {
-            animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-            filter: drop-shadow(2px 2px 0px rgba(255, 0, 80, 0.7)) drop-shadow(-2px -2px 0px rgba(0, 255, 255, 0.7));
-        }
-
-        /* Live Update Flash Animation */
-        @keyframes flash-update {
-            0% { color: #10B981; text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); transform: scale(1.05); }
-            100% { color: white; text-shadow: none; transform: scale(1); }
-        }
-        .updated {
-            animation: flash-update 0.5s ease-out;
-        }
-
-        /* --- Ultra Modern Loader CSS --- */
-        .loader-container {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-        .loader-core {
-            width: 120px;
-            height: 120px;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-        .loader-ring-1 {
-            position: absolute;
-            inset: -10px;
-            border: 2px solid transparent;
-            border-top: 2px solid #4F46E5;
-            border-bottom: 2px solid #4F46E5;
-            border-radius: 50%;
-            animation: spin-3d-1 3s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        }
-        .loader-ring-2 {
-            position: absolute;
-            inset: -25px;
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            border-left: 2px solid #A78BFA;
-            border-right: 2px solid #A78BFA;
-            border-radius: 50%;
-            animation: spin-3d-2 4s linear infinite;
-        }
-        .loader-ring-3 {
-            position: absolute;
-            inset: -40px;
-            border: 1px dashed rgba(16, 185, 129, 0.4);
-            border-radius: 50%;
-            animation: spin-reverse 12s linear infinite;
-        }
-        .loader-logo-glow {
-            position: absolute;
-            inset: -20px;
-            background: radial-gradient(circle, rgba(79,70,229,0.6) 0%, transparent 70%);
-            animation: pulse-glow 2s ease-in-out infinite;
-            filter: blur(10px);
-        }
-        
-        @keyframes spin-3d-1 {
-            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-            100% { transform: rotateX(360deg) rotateY(180deg) rotateZ(360deg); }
-        }
-        @keyframes spin-3d-2 {
-            0% { transform: rotateX(180deg) rotateY(0deg) rotateZ(0deg); }
-            100% { transform: rotateX(540deg) rotateY(360deg) rotateZ(0deg); }
-        }
-        @keyframes spin-reverse {
-            0% { transform: rotateZ(360deg); }
-            100% { transform: rotateZ(0deg); }
-        }
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-        @keyframes shimmer {
-            0% { transform: translateX(-150%); }
-            100% { transform: translateX(250%); }
-        }
-        
-        /* Glitch Text Animation */
-        .glitch-text {
-            position: relative;
-        }
-        .glitch-text::before,
-        .glitch-text::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505;
-        }
-        .glitch-text::before {
-            left: 2px;
-            text-shadow: -1px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim-1 5s infinite linear alternate-reverse;
-        }
-        .glitch-text::after {
-            left: -2px;
-            text-shadow: -1px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim-2 5s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim-1 {
-            0% { clip: rect(20px, 9999px, 10px, 0); }
-            20% { clip: rect(60px, 9999px, 70px, 0); }
-            40% { clip: rect(10px, 9999px, 50px, 0); }
-            60% { clip: rect(80px, 9999px, 20px, 0); }
-            80% { clip: rect(30px, 9999px, 40px, 0); }
-            100% { clip: rect(50px, 9999px, 90px, 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(10px, 9999px, 80px, 0); }
-            20% { clip: rect(80px, 9999px, 10px, 0); }
-            40% { clip: rect(30px, 9999px, 60px, 0); }
-            60% { clip: rect(70px, 9999px, 20px, 0); }
-            80% { clip: rect(20px, 9999px, 50px, 0); }
-            100% { clip: rect(90px, 9999px, 10px, 0); }
-        }
-
-        @keyframes music-bar-anim {
-            0%, 100% { height: 4px; }
-            50% { height: 12px; }
-        }
-
-        /* --- Ultra Modern Additions --- */
-        
-        /* Animated Film Grain */
-        .noise-overlay {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJnoiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjY1IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2cpIiBvcGFjaXR5PSIxIi8+PC9zdmc+');
-            opacity: 0.04;
-            mix-blend-mode: overlay;
-            pointer-events: none;
-            z-index: 50;
-            animation: noise-anim 0.2s infinite;
-        }
-        @keyframes noise-anim {
-            0% { transform: translate(0,0); }
-            10% { transform: translate(-5%,-5%); }
-            20% { transform: translate(-10%,5%); }
-            30% { transform: translate(5%,-10%); }
-            40% { transform: translate(-5%,15%); }
-            50% { transform: translate(-10%,5%); }
-            60% { transform: translate(15%,0); }
-            70% { transform: translate(0,10%); }
-            80% { transform: translate(-15%,0); }
-            90% { transform: translate(10%,5%); }
-            100% { transform: translate(5%,0); }
-        }
-
-        /* Scroll Progress Bar */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #4F46E5, #A78BFA, #10B981);
-            z-index: 9999;
-            width: 0%;
-            transition: width 0.1s ease-out;
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
-        }
-
-        /* Magnetic Button Class */
-        .magnetic-btn {
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            will-change: transform;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-white min-h-screen overflow-x-hidden selection:bg-primary-blue selection:text-white">
 
@@ -445,36 +94,46 @@
     <canvas id="particle-canvas"></canvas>
 
     <!-- Ultra Modern Loading Screen -->
-    <div id="initial-loader" class="fixed inset-0 z-[10000] bg-[#050505] flex flex-col items-center justify-center transition-all duration-1000 ease-[cubic-bezier(0.77,0,0.175,1)] overflow-hidden">
+    <div id="initial-loader" class="fixed inset-0 z-[10000] bg-[#050505] flex flex-col items-center justify-center overflow-hidden">
         <!-- Background Grid Effect for Loader -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(79,70,229,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(79,70,229,0.1)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(79,70,229,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(79,70,229,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_90%)]"></div>
+        <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#050505] z-0"></div>
         
-        <div class="loader-container relative z-10">
-            <div class="loader-core">
-                <!-- 3D Rings -->
-                <div class="loader-ring-1"></div>
-                <div class="loader-ring-2"></div>
-                <div class="loader-ring-3"></div>
+        <div class="loader-container relative z-10 flex flex-col items-center">
+            <!-- Reactor Core Animation -->
+            <div class="relative w-64 h-64 mb-12 perspective-1000">
+                <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-primary-blue border-b-primary-blue animate-[spin_2s_linear_infinite] shadow-[0_0_50px_rgba(79,70,229,0.4)]"></div>
+                <div class="absolute inset-4 rounded-full border-2 border-transparent border-l-neon-purple border-r-neon-purple animate-[spin_4s_linear_infinite_reverse]"></div>
+                <div class="absolute inset-8 rounded-full border border-white/10 animate-pulse"></div>
                 
-                <!-- Central Logo -->
+                <!-- Scanning Line -->
+                <div class="absolute inset-0 w-full h-full rounded-full overflow-hidden opacity-30">
+                    <div class="w-full h-2 bg-neon-green shadow-[0_0_20px_#10B981] animate-scan absolute top-0"></div>
+                </div>
+
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="loader-logo-glow"></div>
-                    <img src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" alt="Logo" class="relative w-16 h-16 rounded-full z-20">
+                    <div class="w-32 h-32 bg-[#0A0A2A] rounded-full border border-white/10 flex items-center justify-center relative overflow-hidden shadow-2xl">
+                        <div class="absolute inset-0 bg-primary-blue/20 animate-pulse"></div>
+                        <img src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" alt="Logo" class="relative w-20 h-20 rounded-full z-20 shadow-lg">
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="mt-12 text-center space-y-4 relative z-10">
-            <h2 class="text-4xl font-display font-bold text-white tracking-[0.3em] glitch-text" data-text="INITIALIZING">INITIALIZING</h2>
             
-            <div class="flex flex-col items-center gap-2">
-                <div class="flex items-center gap-2 text-neon-green font-mono text-xs tracking-widest">
-                    <span class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
-                    <span id="loader-text">ESTABLISHING SECURE UPLINK...</span>
-                </div>
-                <!-- High tech progress bar -->
-                <div class="w-64 h-1 bg-white/5 rounded-full overflow-hidden relative mt-2">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary-blue to-transparent w-[50%] animate-[shimmer_1.5s_infinite_linear]"></div>
+            <!-- Text & Progress -->
+            <div class="text-center space-y-6 relative z-20">
+                <h2 class="text-6xl font-display font-bold text-white tracking-[0.2em] glitch-text mix-blend-screen" data-text="SYSTEM BOOT">SYSTEM BOOT</h2>
+                
+                <div class="flex flex-col items-center gap-3">
+                    <div class="w-96 h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/10 relative shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <div id="loader-bar" class="h-full bg-gradient-to-r from-primary-blue via-neon-purple to-neon-green w-0 transition-all duration-300 ease-out shadow-[0_0_20px_rgba(79,70,229,0.8)] relative">
+                            <div class="absolute right-0 top-0 bottom-0 w-2 bg-white blur-[2px]"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between w-96 text-xs font-mono tracking-widest uppercase">
+                        <span id="loader-status" class="text-neon-purple">INITIALIZING CORE...</span>
+                        <span id="loader-percent" class="text-primary-blue font-bold">0%</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -574,78 +233,113 @@
             </div>
 
             <!-- Right Side: System Status / Diagram Panel - Applied Glassmorphism -->
-            <div class="tilt-card transform-style-3d bg-glass backdrop-blur-3xl p-8 rounded-[2.5rem] shadow-2xl border border-glass-stroke w-full aspect-square max-w-md mx-auto lg:max-w-none relative overflow-hidden group hover:border-primary-blue/30 transition-colors duration-500">
+            <div class="tilt-card transform-style-3d bg-glass backdrop-blur-3xl p-8 rounded-[2.5rem] shadow-2xl border border-glass-stroke w-full max-w-md mx-auto lg:max-w-none relative overflow-hidden group hover:border-primary-blue/30 transition-colors duration-500">
                 <!-- Decorative background blob -->
                 <div class="absolute -top-20 -right-20 w-64 h-64 bg-primary-blue/20 rounded-full blur-3xl group-hover:bg-primary-blue/30 transition duration-500"></div>
                 
                 <!-- Status Header -->
-                <div class="content-pop flex justify-between items-center pb-4 border-b border-white/10 relative z-10">
-                    <div id="status-container" class="flex items-center space-x-2 text-sm font-medium text-neon-green">
-                        <span id="status-indicator" class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
-                        <span id="status-text">BOT ONLINE</span>
+                <div class="content-pop flex justify-between items-center pb-6 border-b border-white/10 relative z-10">
+                    <div class="flex flex-col">
+                        <h3 class="text-2xl font-display font-bold text-white">System Status</h3>
+                        <div id="status-container" class="flex items-center space-x-2 text-xs font-medium text-neon-green mt-1">
+                            <span id="status-indicator" class="w-2 h-2 bg-neon-green rounded-full animate-pulse shadow-[0_0_10px_#10B981]"></span>
+                            <span id="status-text" class="tracking-widest uppercase">OPERATIONAL</span>
+                        </div>
                     </div>
-                    <span class="text-sm text-gray-500 font-mono tracking-widest">SUS FM™ v2.0</span>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-500 font-mono mb-1">VERSION</div>
+                        <div class="bg-white/5 border border-white/10 rounded px-2 py-1 text-xs font-mono text-neon-purple">v2.4.0</div>
+                    </div>
                 </div>
 
-                <!-- Metrics - kept dark for contrast on the glass background -->
+                <!-- Main Metrics Grid -->
                 <div class="content-pop grid grid-cols-2 gap-4 my-6 relative z-10">
-                    <div class="p-4 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm">
-                        <p class="text-sm text-gray-400">Active Servers</p>
-                        <p id="server-count" class="text-2xl font-display font-bold text-white counter" data-target="">0</p>
-                    </div>
-                    <div class="p-4 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm">
-                        <p class="text-sm text-gray-400">Daily Streams</p>
-                        <p id="stream-count" class="text-2xl font-display font-bold text-white counter" data-target="">0</p>
-                    </div>
-                    <div class="p-4 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm">
-                        <p class="text-sm text-gray-400">Avg. Ping</p>
-                        <p id="ping-count" class="text-2xl font-display font-bold text-white">-- ms</p>
-                    </div>
-                    <div class="p-4 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm flex flex-col justify-center">
-                        <div class="flex items-center space-x-2 mb-1">
-                            <div class="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></div>
-                            <span class="text-sm text-gray-400">Lavalink Node</span>
+                    <!-- Servers -->
+                    <div class="p-5 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-primary-blue/30 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="p-2 bg-primary-blue/10 rounded-lg text-primary-blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">SERVERS</span>
                         </div>
-                        <p class="text-lg font-bold text-neon-purple">Connected</p>
+                        <p id="server-count" class="text-3xl font-display font-bold text-white counter" data-target="">0</p>
+                    </div>
+
+                    <!-- CPU Usage -->
+                    <div class="p-5 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-neon-purple/30 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="p-2 bg-neon-purple/10 rounded-lg text-neon-purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">CPU</span>
+                        </div>
+                        <p id="cpu-count" class="text-3xl font-display font-bold text-white">0%</p>
+                    </div>
+
+                    <!-- Total Played -->
+                    <div class="p-5 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-pink-500/30 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="p-2 bg-pink-500/10 rounded-lg text-pink-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">PLAYED</span>
+                        </div>
+                        <p id="total-played-count" class="text-3xl font-display font-bold text-white counter" data-target="">0</p>
+                    </div>
+
+                    <!-- Ping -->
+                    <div class="p-5 bg-black/40 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-neon-green/30 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="p-2 bg-neon-green/10 rounded-lg text-neon-green">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                            <span class="text-[10px] text-gray-500 font-mono uppercase">PING</span>
+                        </div>
+                        <p id="ping-count" class="text-3xl font-display font-bold text-white">-- ms</p>
                     </div>
                 </div>
 
-                <!-- Bot Ecosystem Diagram -->
-                <div class="content-pop relative flex items-center justify-center h-80 mt-4 z-10 perspective-1000 overflow-visible">
-                    <!-- Central Core -->
-                    <div class="relative z-20 w-24 h-24 bg-black/80 backdrop-blur-xl rounded-full border border-white/10 flex items-center justify-center shadow-[0_0_50px_rgba(79,70,229,0.4)]">
-                        <div class="absolute inset-0 rounded-full border border-primary-blue/50 animate-ping opacity-20"></div>
-                        <div class="absolute inset-0 rounded-full border-2 border-t-primary-blue border-r-transparent border-b-primary-blue border-l-transparent animate-spin"></div>
-                        <img src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" class="w-16 h-16 rounded-full relative z-10">
+                <!-- Detailed Stats List -->
+                <div class="content-pop space-y-3 relative z-10">
+                    <!-- Uptime -->
+                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-black/50 flex items-center justify-center text-gray-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <span class="text-sm text-gray-300">System Uptime</span>
+                        </div>
+                        <span id="uptime-text" class="font-mono text-sm text-neon-green">--</span>
                     </div>
 
-                    <!-- Orbit 1: Discord -->
-                    <div class="absolute w-48 h-48 border border-white/5 rounded-full animate-[spin_12s_linear_infinite]">
-                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-10 h-10 bg-[#5865F2] rounded-full flex items-center justify-center shadow-lg shadow-[#5865F2]/40 animate-[spin_12s_linear_infinite_reverse]">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037 13.46 13.46 0 0 0-.59 1.227 18.35 18.35 0 0 0-5.524 0 13.46 13.46 0 0 0-.59-1.227.074.074 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    <!-- Memory Usage -->
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/5">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-black/50 flex items-center justify-center text-gray-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M12 2a10 10 0 0 1 10 10M12 22a10 10 0 0 0 10-10M2 12a10 10 0 0 1 10-10M2 12a10 10 0 0 0 10 10"></path></svg>
+                                </div>
+                                <span class="text-sm text-gray-300">Memory Usage</span>
+                            </div>
+                            <span id="memory-text" class="font-mono text-sm text-neon-purple">--</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-black/50 rounded-full overflow-hidden">
+                            <div id="memory-bar" class="h-full bg-gradient-to-r from-primary-blue to-neon-purple w-0 transition-all duration-1000"></div>
                         </div>
                     </div>
 
-                    <!-- Orbit 2: Spotify & YouTube -->
-                    <div class="absolute w-72 h-72 border border-dashed border-white/10 rounded-full animate-[spin_20s_linear_infinite_reverse]">
-                        <!-- Spotify -->
-                        <div class="absolute top-1/2 -left-4 -translate-y-1/2 w-10 h-10 bg-[#1DB954] rounded-full flex items-center justify-center shadow-lg shadow-[#1DB954]/40 animate-[spin_20s_linear_infinite]">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    <!-- Active Connections -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/5 flex flex-col items-center justify-center">
+                            <span class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Active Players</span>
+                            <span id="playing-count" class="text-xl font-bold text-white">--</span>
                         </div>
-                        <!-- YouTube -->
-                        <div class="absolute top-1/2 -right-4 -translate-y-1/2 w-10 h-10 bg-[#FF0000] rounded-full flex items-center justify-center shadow-lg shadow-[#FF0000]/40 animate-[spin_20s_linear_infinite]">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </div>
-                    </div>
-
-                    <!-- Orbit 3: Lavalink (Tilted) -->
-                    <div class="absolute w-[22rem] h-[22rem] border border-white/5 rounded-full animate-[spin_25s_linear_infinite]" style="transform: rotateX(60deg) rotateY(10deg);">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-auto px-3 py-1 bg-neon-purple/20 backdrop-blur-md border border-neon-purple/50 rounded-full text-[10px] font-bold text-neon-purple shadow-lg shadow-neon-purple/30 animate-[spin_25s_linear_infinite_reverse]">
-                            LAVALINK NODE
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/5 flex flex-col items-center justify-center">
+                            <span class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Listeners</span>
+                            <span id="listener-count" class="text-xl font-bold text-white">--</span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
@@ -882,765 +576,69 @@
     </div>
 
     <!-- Floating Music Player Widget -->
-    <div id="music-widget" class="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-4 bg-black/60 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 animate-float" style="animation-delay: 1s;">
-        <div class="relative w-12 h-12 rounded-lg overflow-hidden shadow-lg shadow-primary-blue/20">
-            <img id="widget-thumbnail" src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" alt="Album Art" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/10"></div>
+    <div id="music-widget" class="fixed bottom-6 right-6 z-50 hidden md:flex items-center gap-5 bg-black/60 backdrop-blur-2xl border border-white/10 py-4 px-6 rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transition-all duration-500 hover:scale-105 hover:border-primary-blue/30 group animate-float overflow-visible w-auto max-w-md cursor-grab active:cursor-grabbing" style="animation-delay: 1s;">
+        
+        <!-- Dynamic Glow Background -->
+        <div class="absolute inset-0 rounded-[2.5rem] bg-gradient-to-r from-primary-blue/10 via-neon-purple/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <!-- Animated Border Shine -->
+        <div class="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]"></div>
         </div>
-        <div class="flex flex-col min-w-[120px]">
-            <span class="text-[10px] text-neon-green font-bold tracking-wider mb-0.5 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-neon-green rounded-full animate-pulse"></span> NOW PLAYING</span>
-            <span id="widget-title" class="text-sm font-bold text-white truncate"></span>
-            <span id="widget-artist" class="text-xs text-gray-400 truncate"></span>
-            <!-- Progress Bar -->
-            <div class="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-primary-blue to-neon-purple w-1/3 animate-[width_30s_linear_infinite]" style="width: 45%"></div>
+
+        <!-- Vinyl/Album Art Section -->
+        <div class="relative w-16 h-16 flex-shrink-0 perspective-1000">
+            <!-- Outer Ring Visualizer -->
+            <div class="absolute inset-[-6px] rounded-full border border-white/10 border-t-neon-green border-r-primary-blue animate-[spin_4s_linear_infinite]"></div>
+            <div class="absolute inset-[-6px] rounded-full border border-white/5 border-b-neon-purple border-l-pink-500 animate-[spin_6s_linear_infinite_reverse]"></div>
+            
+            <!-- Glow behind vinyl -->
+            <div class="absolute inset-0 bg-primary-blue/40 blur-xl rounded-full animate-pulse"></div>
+
+            <!-- The Vinyl -->
+            <div class="relative w-full h-full rounded-full p-0.5 bg-gradient-to-br from-gray-800 to-black shadow-2xl animate-[spin_10s_linear_infinite] group-hover:animate-[spin_3s_linear_infinite]">
+                <img id="widget-thumbnail" src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" alt="Album Art" class="w-full h-full rounded-full object-cover border-2 border-[#1a1a1a]">
+                <!-- Center Spindle -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[#0A0A2A] rounded-full border border-white/20 flex items-center justify-center shadow-inner">
+                    <div class="w-1.5 h-1.5 bg-gray-500 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info & Controls -->
+        <div class="flex flex-col min-w-[180px] relative z-10">
+            <!-- Title -->
+            <div class="relative overflow-hidden h-6 mb-1">
+                <span id="widget-title" class="block text-sm font-bold text-white font-display tracking-wide truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">Waiting for requests...</span>
+            </div>
+            
+            <div class="flex items-center justify-between gap-3 mb-2">
+                <span id="widget-artist" class="text-[11px] text-gray-400 font-mono uppercase tracking-wider flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse"></span>
+                    Sus FM System
+                </span>
+                
+                <!-- Advanced Visualizer -->
+                <div class="flex gap-[3px] h-4 items-end">
+                    <div class="w-1 bg-gradient-to-t from-primary-blue to-cyan-400 rounded-full animate-music-bar" style="animation-delay: 0s"></div>
+                    <div class="w-1 bg-gradient-to-t from-neon-purple to-pink-500 rounded-full animate-music-bar" style="animation-delay: 0.1s"></div>
+                    <div class="w-1 bg-gradient-to-t from-neon-green to-emerald-400 rounded-full animate-music-bar" style="animation-delay: 0.2s"></div>
+                    <div class="w-1 bg-gradient-to-t from-orange-500 to-yellow-400 rounded-full animate-music-bar" style="animation-delay: 0.3s"></div>
+                </div>
+            </div>
+
+            <!-- Holographic Progress Bar -->
+            <div class="relative w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <!-- Background track glow -->
+                <div class="absolute inset-0 bg-white/5"></div>
+                <!-- Progress Fill -->
+                <div class="h-full bg-gradient-to-r from-primary-blue via-neon-purple to-neon-green w-[60%] relative shadow-[0_0_15px_rgba(79,70,229,0.8)] animate-[shimmer_3s_infinite_linear]">
+                    <div class="absolute right-0 top-0 bottom-0 w-1 bg-white blur-[1px] animate-pulse"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // --- Mobile Menu Logic ---
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                if (mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.remove('hidden');
-                    // Trigger reflow for transition
-                    void mobileMenu.offsetWidth;
-                    mobileMenu.classList.remove('opacity-0', 'scale-95');
-                } else {
-                    mobileMenu.classList.add('opacity-0', 'scale-95');
-                    setTimeout(() => {
-                        mobileMenu.classList.add('hidden');
-                    }, 300);
-                }
-            });
-
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('opacity-0', 'scale-95');
-                    setTimeout(() => {
-                        mobileMenu.classList.add('hidden');
-                    }, 300);
-                });
-            });
-        }
-
-        // --- Scroll Reveal Animation ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const reveals = document.querySelectorAll('.reveal');
-
-            const revealOnScroll = () => {
-                const windowHeight = window.innerHeight;
-                const elementVisible = 150;
-
-                reveals.forEach((reveal) => {
-                    const elementTop = reveal.getBoundingClientRect().top;
-                    if (elementTop < windowHeight - elementVisible) {
-                        reveal.classList.add('active');
-                    }
-                });
-            };
-
-            window.addEventListener('scroll', revealOnScroll);
-            // Trigger once on load
-            revealOnScroll();
-        });
-
-        // --- Scroll Progress Bar ---
-        window.addEventListener('scroll', () => {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (scrollTop / scrollHeight) * 100;
-            document.getElementById('scroll-progress').style.width = scrolled + "%";
-        });
-
-        // --- Magnetic Buttons ---
-        // Only enable on desktop
-        if (window.matchMedia("(hover: hover)").matches) {
-            const magnets = document.querySelectorAll('.magnetic-btn');
-            magnets.forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-                });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = 'translate(0, 0)';
-                });
-            });
-        }
-
-        // --- Spotlight Card Effect ---
-        const cardsContainer = document.getElementById('cards-container');
-        const cards = document.querySelectorAll('.spotlight-card');
-
-        cardsContainer.addEventListener('mousemove', (e) => {
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
-
-        // --- 3D Tilt Effect ---
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        
-        // Only enable tilt on devices that support hover (desktops) to prevent mobile jitter
-        if (window.matchMedia("(hover: hover)").matches) {
-            tiltCards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    // Calculate rotation based on mouse position
-                    const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg rotation
-                    const rotateY = ((x - centerX) / centerX) * 10;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                });
-            });
-        }
-
-        // --- Modern Header: Sliding Pill Effect ---
-        const navLinks = document.querySelectorAll('.nav-link');
-        const navPill = document.getElementById('nav-pill');
-        const navContainer = document.querySelector('nav');
-
-        if (navContainer && navPill) {
-            navLinks.forEach(link => {
-                link.addEventListener('mouseenter', (e) => {
-                    const rect = e.target.getBoundingClientRect();
-                    const navRect = navContainer.getBoundingClientRect();
-                    
-                    // Calculate position relative to the container
-                    const left = rect.left - navRect.left;
-                    const width = rect.width;
-
-                    navPill.style.width = `${width}px`;
-                    navPill.style.transform = `translateX(${left}px)`;
-                    navPill.style.opacity = '1';
-                });
-            });
-
-            navContainer.addEventListener('mouseleave', () => {
-                navPill.style.opacity = '0';
-            });
-        }
-
-        // --- Custom Cursor Logic ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-
-        if (cursorDot && cursorOutline) {
-            window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                // Dot follows instantly
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                // Outline follows with delay (using animate for smoothness)
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
-            });
-
-            // Add hover effect to interactive elements
-            const interactiveElements = document.querySelectorAll('a, button, .cursor-pointer');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                    cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorOutline.style.backgroundColor = 'transparent';
-                });
-            });
-        }
-
-        // --- Text Scramble Effect ---
-        class TextScramble {
-            constructor(el) {
-                this.el = el;
-                this.chars = '!<>-_\\/[]{}—=+*^?#________';
-                this.update = this.update.bind(this);
-            }
-            setText(newText) {
-                const oldText = this.el.innerText;
-                const length = Math.max(oldText.length, newText.length);
-                const promise = new Promise((resolve) => this.resolve = resolve);
-                this.queue = [];
-                for (let i = 0; i < length; i++) {
-                    const from = oldText[i] || '';
-                    const to = newText[i] || '';
-                    const start = Math.floor(Math.random() * 40);
-                    const end = start + Math.floor(Math.random() * 40);
-                    this.queue.push({ from, to, start, end });
-                }
-                cancelAnimationFrame(this.frameRequest);
-                this.frame = 0;
-                this.update();
-                return promise;
-            }
-            update() {
-                let output = '';
-                let complete = 0;
-                for (let i = 0, n = this.queue.length; i < n; i++) {
-                    let { from, to, start, end, char } = this.queue[i];
-                    if (this.frame >= end) {
-                        complete++;
-                        output += to;
-                    } else if (this.frame >= start) {
-                        if (!char || Math.random() < 0.28) {
-                            char = this.randomChar();
-                            this.queue[i].char = char;
-                        }
-                        output += `<span class="dud">${char}</span>`;
-                    } else {
-                        output += from;
-                    }
-                }
-                this.el.innerHTML = output;
-                if (complete === this.queue.length) {
-                    this.resolve();
-                } else {
-                    this.frameRequest = requestAnimationFrame(this.update);
-                    this.frame++;
-                }
-            }
-            randomChar() {
-                return this.chars[Math.floor(Math.random() * this.chars.length)];
-            }
-        }
-
-        // Initialize Scramble
-        document.addEventListener('DOMContentLoaded', () => {
-            const phrases = [
-                'Discord Audio',
-                'Music Quality',
-                'Lavalink Speed',
-                'Vibe Sessions'
-            ];
-            
-            const el = document.querySelector('.scramble-text');
-            if(el) {
-                const fx = new TextScramble(el);
-                let counter = 0;
-                const next = () => {
-                    fx.setText(phrases[counter]).then(() => {
-                        setTimeout(next, 3000);
-                    });
-                    counter = (counter + 1) % phrases.length;
-                };
-                // Start after a small delay
-                setTimeout(next, 1000);
-            }
-        });
-
-        // --- Live Stats Counter Animation ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 100; // The lower the slower
-
-            counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText.replace(/,/g, ''); 
-                    
-                    // Lower inc to slow and higher to slow
-                    const inc = target / speed;
-
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count + inc).toLocaleString();
-                        setTimeout(updateCount, 20);
-                    } else {
-                        counter.innerText = target.toLocaleString();
-                    }
-                };
-                updateCount();
-            });
-        });
-
-        // --- Particle System (Reacts to Mouse & Simulated Beats) ---
-        const initParticles = () => {
-            const canvas = document.getElementById('particle-canvas');
-            if (!canvas) return;
-            
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            let particlesArray = [];
-            
-            // Mouse interaction
-            const mouse = {
-                x: null,
-                y: null,
-                radius: 150
-            }
-            
-            window.addEventListener('mousemove', (event) => {
-                mouse.x = event.x;
-                mouse.y = event.y;
-            });
-            
-            // Simulated Beat Pulse
-            let pulse = 1;
-            let beatFrame = 0;
-
-            class Particle {
-                constructor(x, y, directionX, directionY, size, color) {
-                    this.x = x;
-                    this.y = y;
-                    this.directionX = directionX;
-                    this.directionY = directionY;
-                    this.size = size;
-                    this.baseSize = size;
-                    this.color = color;
-                }
-                
-                draw() {
-                    ctx.beginPath();
-                    // Pulse effect on size to simulate music beat
-                    ctx.arc(this.x, this.y, this.size * pulse, 0, Math.PI * 2, false);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                }
-                
-                update() {
-                    if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                    if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                    
-                    // Mouse Repulsion
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-                    
-                    if (distance < mouse.radius) {
-                        if (mouse.x < this.x && this.x < canvas.width - 10) this.x += 3;
-                        if (mouse.x > this.x && this.x > 10) this.x -= 3;
-                        if (mouse.y < this.y && this.y < canvas.height - 10) this.y += 3;
-                        if (mouse.y > this.y && this.y > 10) this.y -= 3;
-                    }
-                    
-                    this.x += this.directionX;
-                    this.y += this.directionY;
-                    
-                    this.draw();
-                }
-            }
-            
-            function init() {
-                particlesArray = [];
-                let numberOfParticles = (canvas.height * canvas.width) / 15000;
-                for (let i = 0; i < numberOfParticles; i++) {
-                    let size = (Math.random() * 2) + 1;
-                    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                    let directionX = (Math.random() * 2) - 1;
-                    let directionY = (Math.random() * 2) - 1;
-                    let color = Math.random() > 0.5 ? 'rgba(79, 70, 229, 0.4)' : 'rgba(167, 139, 250, 0.4)';
-                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-                }
-            }
-            
-            function connect() {
-                let opacityValue = 1;
-                for (let a = 0; a < particlesArray.length; a++) {
-                    for (let b = a; b < particlesArray.length; b++) {
-                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
-                        + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                        
-                        if (distance < (canvas.width/7) * (canvas.height/7) && distance < 20000) {
-                            opacityValue = 1 - (distance/20000);
-                            ctx.strokeStyle = 'rgba(255, 255, 255,' + opacityValue * 0.05 + ')';
-                            ctx.lineWidth = 1;
-                            ctx.beginPath();
-                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-            
-            function animate() {
-                requestAnimationFrame(animate);
-                ctx.clearRect(0, 0, innerWidth, innerHeight);
-                
-                // Update Pulse (Simulated Beat)
-                beatFrame++;
-                if (beatFrame > 50) {
-                    pulse = 1.5; // Beat hit
-                    beatFrame = 0;
-                }
-                // Smooth decay
-                if (pulse > 1) pulse -= 0.02;
-                
-                for (let i = 0; i < particlesArray.length; i++) {
-                    particlesArray[i].update();
-                }
-                connect();
-            }
-            
-            window.addEventListener('resize', () => {
-                canvas.width = innerWidth;
-                canvas.height = innerHeight;
-                init();
-            });
-            
-            init();
-            animate();
-        };
-        
-        document.addEventListener('DOMContentLoaded', initParticles);
-
-        // --- Testimonial Carousel ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const track = document.getElementById('testimonial-track');
-            const slides = track ? Array.from(track.children) : [];
-            const nextBtn = document.getElementById('next-slide');
-            const prevBtn = document.getElementById('prev-slide');
-            const dots = document.querySelectorAll('.dot');
-            
-            if (!track || slides.length === 0) return;
-
-            let currentIndex = 0;
-
-            const updateSlide = (index) => {
-                if (index < 0) index = slides.length - 1;
-                if (index >= slides.length) index = 0;
-                
-                currentIndex = index;
-                track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('bg-primary-blue', i === currentIndex);
-                    dot.classList.toggle('scale-125', i === currentIndex);
-                    dot.classList.toggle('bg-white/20', i !== currentIndex);
-                });
-            };
-
-            if (nextBtn) nextBtn.addEventListener('click', () => updateSlide(currentIndex + 1));
-            if (prevBtn) prevBtn.addEventListener('click', () => updateSlide(currentIndex - 1));
-            
-            dots.forEach(dot => {
-                dot.addEventListener('click', (e) => updateSlide(parseInt(e.target.dataset.index)));
-            });
-
-            setInterval(() => updateSlide(currentIndex + 1), 5000);
-            updateSlide(0);
-        });
-
-        // --- Utility function for API Exponential Backoff (MANDATORY FOR API CALLS) ---
-        // Although no LLM API call is needed for this static page, this function demonstrates 
-        // the required robust calling structure if you were to add a feature like a command generator.
-        async function fetchWithRetry(url, options, maxRetries = 3) {
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response;
-                } catch (error) {
-                    if (i === maxRetries - 1) {
-                        console.error('All retries failed.', error);
-                        throw error;
-                    }
-                    const delay = Math.pow(2, i) * 1000;
-                    // console.log(`Retry attempt ${i + 1} failed. Retrying in ${delay / 1000}s...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                }
-            }
-        }
-    </script>
-
-    <!-- Firebase Initialization -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDTuXzi7Clh0jeNO72mY6arh8pO4-m6Zv0",
-            authDomain: "susfm-fef66.firebaseapp.com",
-            databaseURL: "https://susfm-fef66-default-rtdb.asia-southeast1.firebasedatabase.app/",
-            projectId: "susfm-fef66",
-            storageBucket: "susfm-fef66.firebasestorage.app",
-            messagingSenderId: "772122910920",
-            appId: "1:772122910920:web:1b548a9118fb45146ac5fd",
-            measurementId: "G-LZHG2GKSH3"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
-
-        // --- Realtime Bot Status Updates ---
-        const statusRef = ref(db, 'botStatus');
-        const streamsRef = ref(db, 'dailyStreams');
-
-        // 1. Handle Bot Status & Guild Count
-        onValue(statusRef, (snapshot) => {
-            const data = snapshot.val();
-            
-            // Remove Loading Screen when data arrives
-            const loader = document.getElementById('initial-loader');
-            if (loader && !loader.classList.contains('loaded')) {
-                const loaderText = document.getElementById('loader-text');
-                if(loaderText) loaderText.innerText = "ACCESS GRANTED";
-                
-                setTimeout(() => {
-                    // Curtain lift effect
-                    loader.style.transform = "translateY(-100%)";
-                    loader.classList.add('loaded');
-                    setTimeout(() => loader.remove(), 800);
-                }, 800);
-            }
-
-            if (data) {
-                const statusContainer = document.getElementById('status-container');
-                const statusText = document.getElementById('status-text');
-                const statusIndicator = document.getElementById('status-indicator');
-                const serverCount = document.getElementById('server-count');
-                const pingCount = document.getElementById('ping-count');
-                
-                const widgetTitle = document.getElementById('widget-title');
-                const widgetArtist = document.getElementById('widget-artist');
-                const widgetThumbnail = document.getElementById('widget-thumbnail');
-
-                // Update Online Status & Colors
-                if (data.online) {
-                    statusContainer.classList.remove('text-red-500');
-                    statusContainer.classList.add('text-neon-green');
-                    statusIndicator.classList.remove('bg-red-500');
-                    statusIndicator.classList.add('bg-neon-green');
-                    statusText.innerText = "BOT ONLINE";
-                } else {
-                    statusContainer.classList.remove('text-neon-green');
-                    statusContainer.classList.add('text-red-500');
-                    statusIndicator.classList.remove('bg-neon-green');
-                    statusIndicator.classList.add('bg-red-500');
-                    statusText.innerText = "MAINTENANCE";
-                }
-
-                // Update Server Count (with flash effect)
-                if (data.guildCount) {
-                    const currentVal = serverCount.innerText;
-                    const newVal = data.guildCount.toLocaleString();
-                    if (currentVal !== newVal) {
-                        serverCount.innerText = newVal;
-                        triggerUpdateAnim(serverCount);
-                    }
-                }
-
-                // Update Ping
-                if (data.ping) {
-                    pingCount.innerText = data.ping + " ms";
-                    // Color coding for ping
-                    if (data.ping < 50) pingCount.className = "text-2xl font-display font-bold text-neon-green";
-                    else if (data.ping < 150) pingCount.className = "text-2xl font-display font-bold text-yellow-400";
-                    else pingCount.className = "text-2xl font-display font-bold text-red-500";
-                } else {
-                    pingCount.innerText = "-- ms";
-                }
-
-                // Update Now Playing Widget
-                if (data.currentTrack) {
-                    let title = data.currentTrack.title || "Unknown Track";
-                    if (title.length > 20) {
-                        title = title.substring(0, 20) + "...";
-                    }
-                    if(widgetTitle) widgetTitle.innerText = title;
-                    if(widgetArtist) widgetArtist.innerText = data.currentTrack.author || "Unknown Artist";
-                    if(widgetThumbnail) widgetThumbnail.src = data.currentTrack.thumbnail || "https://i.ibb.co/PGPGx0jq/sus-fm.gif";
-                } else {
-                    if(widgetTitle) widgetTitle.innerText = "Waiting for requests...";
-                    if(widgetArtist) widgetArtist.innerText = "Sus FM";
-                    if(widgetThumbnail) widgetThumbnail.src = "https://i.ibb.co/PGPGx0jq/sus-fm.gif";
-                }
-            }
-        }, (error) => {
-            console.error("Error reading bot status:", error);
-            // Remove loader even on error so site is usable
-            const loader = document.getElementById('initial-loader');
-            if (loader && !loader.classList.contains('loaded')) {
-                loader.style.transform = "translateY(-100%)";
-                loader.classList.add('loaded');
-                setTimeout(() => loader.remove(), 800);
-            }
-        });
-
-        // 2. Handle Streams (Calculate Total)
-        onValue(streamsRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const streamCount = document.getElementById('stream-count');
-                // Sum up all values in the dailyStreams object
-                const totalStreams = Object.values(data).reduce((sum, count) => sum + count, 0);
-                
-                const currentVal = streamCount.innerText;
-                const newVal = totalStreams.toLocaleString();
-                
-                if (currentVal !== newVal) {
-                    streamCount.innerText = newVal;
-                    triggerUpdateAnim(streamCount);
-                }
-            }
-        }, (error) => {
-            console.error("Error reading streams:", error);
-        });
-
-        // Fallback: Force remove loader after 5 seconds if DB is slow/blocked
-        setTimeout(() => {
-             const loader = document.getElementById('initial-loader');
-             if (loader && !loader.classList.contains('loaded')) {
-                 loader.style.transform = "translateY(-100%)";
-                 loader.classList.add('loaded');
-                 setTimeout(() => loader.remove(), 800);
-             }
-        }, 5000);
-
-        // Helper to trigger CSS animation
-        function triggerUpdateAnim(element) {
-            element.classList.remove('updated');
-            void element.offsetWidth; // Trigger reflow
-            element.classList.add('updated');
-        }
-
-        // --- Simulation Script (For Testing) ---
-        // Call startSimulation() in the console to test the effects!
-        window.startSimulation = () => {
-            console.log("Starting local simulation...");
-            
-            setInterval(() => {
-                const serverCount = document.getElementById('server-count');
-                const streamCount = document.getElementById('stream-count');
-                const pingCount = document.getElementById('ping-count');
-                
-                // Simulate random increments
-                let currentServers = parseInt(serverCount.innerText.replace(/,/g, '')) || 14000;
-                let currentStreams = parseInt(streamCount.innerText.replace(/,/g, '')) || 1200000;
-                let currentPing = Math.floor(Math.random() * (60 - 20 + 1) + 20); // Random ping 20-60ms
-                
-                currentServers += Math.floor(Math.random() * 5);
-                currentStreams += Math.floor(Math.random() * 50);
-
-                serverCount.innerText = currentServers.toLocaleString();
-                streamCount.innerText = currentStreams.toLocaleString();
-                pingCount.innerText = currentPing + " ms";
-
-                triggerUpdateAnim(serverCount);
-                triggerUpdateAnim(streamCount);
-            }, 2000); // Update every 2 seconds
-        };
-
-        // --- Draggable Music Widget ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const widget = document.getElementById('music-widget');
-            if (!widget) return;
-
-            let isDragging = false;
-            let startX, startY;
-
-            // Set initial cursor style
-            widget.style.cursor = 'grab';
-
-            widget.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                widget.style.cursor = 'grabbing';
-                
-                // Disable transitions and animations during drag for direct control
-                widget.style.transition = 'none';
-                widget.classList.remove('animate-float');
-
-                // Calculate offset from mouse to element top-left
-                const rect = widget.getBoundingClientRect();
-                startX = e.clientX - rect.left;
-                startY = e.clientY - rect.top;
-
-                // Prevent default to avoid text selection
-                e.preventDefault();
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-
-                // Calculate new position
-                const x = e.clientX - startX;
-                const y = e.clientY - startY;
-
-                // Apply position (switching from bottom/right to top/left positioning)
-                widget.style.left = `${x}px`;
-                widget.style.top = `${y}px`;
-                widget.style.bottom = 'auto';
-                widget.style.right = 'auto';
-            });
-
-            window.addEventListener('mouseup', () => {
-                if (!isDragging) return;
-                isDragging = false;
-                widget.style.cursor = 'grab';
-                
-                // Re-enable transitions for hover effects
-                widget.style.transition = 'all 0.3s ease';
-            });
-        });
-
-        // --- Background Music Player Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const bgWidget = document.getElementById('bg-music-widget');
-            const bgAudio = document.getElementById('bg-audio');
-            const playIcon = document.getElementById('bg-play-icon');
-            const pauseIcon = document.getElementById('bg-pause-icon');
-            const visualizerBars = document.querySelectorAll('#bg-visualizer div');
-            
-            if (bgWidget && bgAudio) {
-                bgAudio.volume = 0.2; // Default low volume
-
-                const togglePlay = () => {
-                    if (bgAudio.paused) {
-                        bgAudio.play().then(() => {
-                            playIcon.classList.add('hidden');
-                            pauseIcon.classList.remove('hidden');
-                            bgWidget.classList.add('border-neon-purple/50');
-                            // Start visualizer animation
-                            visualizerBars.forEach((bar, index) => {
-                                bar.style.animation = `music-bar-anim ${0.5 + index * 0.2}s ease-in-out infinite alternate`;
-                            });
-                        }).catch(e => console.log("Audio play failed:", e));
-                    } else {
-                        bgAudio.pause();
-                        playIcon.classList.remove('hidden');
-                        pauseIcon.classList.add('hidden');
-                        bgWidget.classList.remove('border-neon-purple/50');
-                        // Stop visualizer animation
-                        visualizerBars.forEach(bar => {
-                            bar.style.animation = 'none';
-                        });
-                    }
-                };
-
-                bgWidget.addEventListener('click', togglePlay);
-            }
-        });
-    </script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
