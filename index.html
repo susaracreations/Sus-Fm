@@ -629,15 +629,15 @@
     </footer>
 
     <!-- Floating Music Player Widget -->
-    <div class="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-4 bg-black/60 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 animate-float" style="animation-delay: 1s;">
+    <div id="music-widget" class="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-4 bg-black/60 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 animate-float" style="animation-delay: 1s;">
         <div class="relative w-12 h-12 rounded-lg overflow-hidden shadow-lg shadow-primary-blue/20">
-            <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=150&h=150&fit=crop" alt="Album Art" class="w-full h-full object-cover animate-spin-slow">
+            <img id="widget-thumbnail" src="https://i.ibb.co/PGPGx0jq/sus-fm.gif" alt="Album Art" class="w-full h-full object-cover animate-spin-slow">
             <div class="absolute inset-0 bg-black/10"></div>
         </div>
         <div class="flex flex-col min-w-[120px]">
             <span class="text-[10px] text-neon-green font-bold tracking-wider mb-0.5 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-neon-green rounded-full animate-pulse"></span> NOW PLAYING</span>
-            <span class="text-sm font-bold text-white truncate">Midnight City</span>
-            <span class="text-xs text-gray-400 truncate">M83</span>
+            <span id="widget-title" class="text-sm font-bold text-white truncate">Midnight City</span>
+            <span id="widget-artist" class="text-xs text-gray-400 truncate">M83</span>
             <!-- Progress Bar -->
             <div class="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
                 <div class="h-full bg-gradient-to-r from-primary-blue to-neon-purple w-1/3 animate-[width_30s_linear_infinite]" style="width: 45%"></div>
@@ -1201,6 +1201,10 @@
                 const statusText = document.getElementById('status-text');
                 const statusIndicator = document.getElementById('status-indicator');
                 const serverCount = document.getElementById('server-count');
+                
+                const widgetTitle = document.getElementById('widget-title');
+                const widgetArtist = document.getElementById('widget-artist');
+                const widgetThumbnail = document.getElementById('widget-thumbnail');
 
                 // Update Online Status & Colors
                 if (data.online) {
@@ -1225,6 +1229,17 @@
                         serverCount.innerText = newVal;
                         triggerUpdateAnim(serverCount);
                     }
+                }
+
+                // Update Now Playing Widget
+                if (data.currentTrack) {
+                    if(widgetTitle) widgetTitle.innerText = data.currentTrack.title || "Unknown Track";
+                    if(widgetArtist) widgetArtist.innerText = data.currentTrack.author || "Unknown Artist";
+                    if(widgetThumbnail) widgetThumbnail.src = data.currentTrack.thumbnail || "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=150&h=150&fit=crop";
+                } else {
+                    if(widgetTitle) widgetTitle.innerText = "Waiting for requests...";
+                    if(widgetArtist) widgetArtist.innerText = "Sus FM";
+                    if(widgetThumbnail) widgetThumbnail.src = "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=150&h=150&fit=crop";
                 }
             }
         }, (error) => {
